@@ -33,7 +33,13 @@ const PRODUCTION = app.get('env') === 'production';
 
 // Administrative routes are not timed or logged, but for non-admin routes, pino
 // overhead is included in timing.
+
+app.get('/greetings', function(req, res){
+  res.send('warm welcome to: ' + req.query.name);
+});
+
 app.get('/ready', (req, res) => res.status(200).json({status:"ok"}));
+
 app.get('/live', (req, res) => res.status(200).json({status:"ok"}));
 app.get('/metrics', (req, res, next) => {
   res.set('Content-Type', Prometheus.register.contentType)
